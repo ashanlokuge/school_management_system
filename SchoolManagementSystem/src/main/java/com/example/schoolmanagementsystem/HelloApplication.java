@@ -1,4 +1,4 @@
-package com.example.schoolmangementsystem;
+package com.example.schoolmanagementsystem;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

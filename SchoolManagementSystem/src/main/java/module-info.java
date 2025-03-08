@@ -1,4 +1,4 @@
-module com.example.schoolmangementsystem {
+module com.example.schoolmanagementsystem {
     requires javafx.controls;
     requires javafx.fxml;
 
@@ -6,6 +6,6 @@ module com.example.schoolmangementsystem {
     requires com.dlsc.formsfx;
     requires org.kordamp.ikonli.javafx;
 
-    opens com.example.schoolmangementsystem to javafx.fxml;
-    exports com.example.schoolmangementsystem;
+    opens com.example.schoolmanagementsystem to javafx.fxml;
+    exports com.example.schoolmanagementsystem;
 }
