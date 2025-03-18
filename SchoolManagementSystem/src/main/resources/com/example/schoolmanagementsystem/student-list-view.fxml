@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.schoolmanagementsystem.StudentListController">
+
+        <center>
+            <TableView fx:id="studentsTable">
+                <columns>
+                    <TableColumn text="ID" fx:id="idColumn" prefWidth="50"/>
+                    <TableColumn text="First Name" fx:id="firstNameColumn" prefWidth="150"/>
+                    <TableColumn text="Last Name" fx:id="lastNameColumn" prefWidth="150"/>
+                    <TableColumn text="Email" fx:id="emailColumn" prefWidth="200"/>
+                </columns>
+            </TableView>
+        </center>
+
+    </BorderPane>
+
+
