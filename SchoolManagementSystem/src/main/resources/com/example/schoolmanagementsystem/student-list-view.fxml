@@ -3,9 +3,18 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <BorderPane xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.example.schoolmanagementsystem.StudentListController">
+
+    <top>
+        <HBox spacing="10" style="-fx-padding: 10;">
+            <TextField fx:id="searchField" promptText="Search by name or ID"/>
+            <Button text="Search" onAction="#handleSearch"/>
+            <Button text="Reset" onAction="#handleReset"/>
+        </HBox>
+    </top>
 
         <center>
             <TableView fx:id="studentsTable">
@@ -17,6 +26,10 @@
                 </columns>
             </TableView>
         </center>
+
+    <bottom>
+        <Label fx:id="messageLabel" style="-fx-padding: 5;"/>
+    </bottom>
 
     </BorderPane>
 
