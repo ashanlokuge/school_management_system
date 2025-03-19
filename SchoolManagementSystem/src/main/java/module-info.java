@@ -5,6 +5,7 @@ module com.example.schoolmanagementsystem {
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
     requires org.kordamp.ikonli.javafx;
+    requires java.sql;
 
     opens com.example.schoolmanagementsystem to javafx.fxml;
     exports com.example.schoolmanagementsystem;
