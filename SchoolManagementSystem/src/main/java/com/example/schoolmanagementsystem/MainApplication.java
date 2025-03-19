@@ -13,7 +13,7 @@ public class MainApplication extends Application {
     public void start(Stage stage) throws IOException {
         DatabaseConnection.initializeDatabase();
 
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("view/studentDash-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("view/login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 866,528 );
         stage.setTitle("Login");
         stage.setScene(scene);
