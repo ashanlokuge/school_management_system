@@ -13,13 +13,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+
 public class StudentListController {
 
     @FXML private TableView<Student> studentsTable;
-    @FXML private TableColumn<Student, Integer> idColumn;
-    @FXML private TableColumn<Student, String> firstNameColumn;
-    @FXML private TableColumn<Student, String> lastNameColumn;
-    @FXML private TableColumn<Student, String> emailColumn;
+    @FXML private TableColumn<Student, String> nameColumn;
+    @FXML private TableColumn<Student, String> studentIdColumn;
+    @FXML private TableColumn<Student, String> gradeColumn;
+    @FXML private TableColumn<Student, String> mobileNumberColumn;
     @FXML private TextField searchField;
     @FXML private Label messageLabel;
 
@@ -30,10 +31,10 @@ public class StudentListController {
     }
 
     private void configureTableColumns() {
-        idColumn.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
-        firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().firstNameProperty());
-        lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
-        emailColumn.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
+        nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        studentIdColumn.setCellValueFactory(cellData -> cellData.getValue().studentIdProperty());
+        gradeColumn.setCellValueFactory(cellData -> cellData.getValue().gradeProperty());
+        mobileNumberColumn.setCellValueFactory(cellData -> cellData.getValue().mobileNumberProperty());
     }
 
     private void loadStudents() {
@@ -45,53 +46,49 @@ public class StudentListController {
         List<Student> students = new ArrayList<>();
         String query;
 
-        if(searchTerm.isEmpty()) {
-            query = "SELECT * FROM students";
+        if (searchTerm.isEmpty()) {
+            query = "SELECT name, student_id, grade, mobile_number FROM students";
         } else {
-            query = "SELECT * FROM students WHERE " +
-                    "id = ? OR " +
-                    "CONCAT(first_name, ' ', last_name) LIKE ?";
+            query = "SELECT name, student_id, grade, mobile_number FROM students WHERE " +
+                    "name LIKE ? OR " +
+                    "student_id LIKE ? OR " +
+                    "grade LIKE ? OR " +
+                    "mobile_number LIKE ?";
         }
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
 
-            if(!searchTerm.isEmpty()) {
-                // Try to parse as ID
-                try {
-                    int id = Integer.parseInt(searchTerm);
-                    stmt.setInt(1, id);
-                } catch (NumberFormatException e) {
-                    stmt.setInt(1, -1); // Invalid ID to ensure no match
-                }
+            if (!searchTerm.isEmpty()) {
+                stmt.setString(1, "%" + searchTerm + "%");
                 stmt.setString(2, "%" + searchTerm + "%");
+                stmt.setString(3, "%" + searchTerm + "%");
+                stmt.setString(4, "%" + searchTerm + "%");
             }
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     students.add(new Student(
-                            rs.getInt("id"),
-                            rs.getString("first_name"),
-                            rs.getString("last_name"),
-                            rs.getString("email"),
-                            rs.getString("phone"),
+                            rs.getString("name"),
+                            rs.getString("student_id"),
                             rs.getString("grade"),
-                            rs.getDate("birth_date").toLocalDate(),
-                            rs.getDate("enrollment_date").toLocalDate()
+                            rs.getString("mobile_number")
                     ));
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return students;
     }
+
     @FXML
     private void handleSearch() {
         String searchTerm = searchField.getText().trim();
         List<Student> students = fetchStudentsFromDatabase(searchTerm);
 
-        if(students.isEmpty()) {
+        if (students.isEmpty()) {
             messageLabel.setText("No students found matching: " + searchTerm);
             messageLabel.setStyle("-fx-text-fill: red;");
         } else {

@@ -1,40 +1,29 @@
 package com.example.schoolmanagementsystem.Model;
 
-import javafx.beans.property.*;
-
-import java.time.LocalDate;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public class Student {
-    private final IntegerProperty id = new SimpleIntegerProperty();
-    private final StringProperty firstName = new SimpleStringProperty();
-    private final StringProperty lastName = new SimpleStringProperty();
 
-    private final StringProperty grade = new SimpleStringProperty();
-    private final StringProperty email = new SimpleStringProperty();
-    private final StringProperty phone = new SimpleStringProperty();
-    private final ObjectProperty<LocalDate> birthDate = new SimpleObjectProperty<>();
-    private final ObjectProperty<LocalDate> enrollmentDate = new SimpleObjectProperty<>();
+    private final StringProperty name;
+    private final StringProperty studentId;
+    private final StringProperty grade;
+    private final StringProperty mobileNumber;
 
-
-    public Student(int id, String firstName, String lastName, String grade, String email,
-                   String phone, LocalDate birthDate, LocalDate enrollmentDate) {
-        this.id.set(id);
-        this.firstName.set(firstName);
-        this.lastName.set(lastName);
-        this.grade.set(grade);
-        this.email.set(email);
-        this.phone.set(phone);
-        this.birthDate.set(birthDate);
-        this.enrollmentDate.set(enrollmentDate);
+    public Student(String name, String studentId, String grade, String mobileNumber) {
+        this.name = new SimpleStringProperty(name);
+        this.studentId = new SimpleStringProperty(studentId);
+        this.grade = new SimpleStringProperty(grade);
+        this.mobileNumber = new SimpleStringProperty(mobileNumber);
     }
 
-
-    public IntegerProperty idProperty() { return id; }
-    public StringProperty firstNameProperty() { return firstName; }
-    public StringProperty lastNameProperty() { return lastName; }
-
+    public StringProperty nameProperty() { return name; }
+    public StringProperty studentIdProperty() { return studentId; }
     public StringProperty gradeProperty() { return grade; }
-    public StringProperty emailProperty() { return email; }
+    public StringProperty mobileNumberProperty() { return mobileNumber; }
 
-
+    public String getName() { return name.get(); }
+    public String getStudentId() { return studentId.get(); }
+    public String getGrade() { return grade.get(); }
+    public String getMobileNumber() { return mobileNumber.get(); }
 }
