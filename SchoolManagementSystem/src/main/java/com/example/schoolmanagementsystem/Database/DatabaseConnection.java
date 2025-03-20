@@ -1,9 +1,9 @@
 package com.example.schoolmanagementsystem.Database;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 
 public class DatabaseConnection {
 
@@ -19,7 +19,7 @@ public class DatabaseConnection {
 
     public static void initializeDatabase() {
         createDatabaseIfNotExists(); // Create the database if it doesn't exist
-        createTableIfNotExists();    // Create the table if it doesn't exist
+        createTablesIfNotExists();   // Create the tables if they don't exist
     }
 
     private static void createDatabaseIfNotExists() {
@@ -34,19 +34,38 @@ public class DatabaseConnection {
         }
     }
 
-    private static void createTableIfNotExists() {
-        String createTableSQL = "CREATE TABLE IF NOT EXISTS students ("
-                + "id INT AUTO_INCREMENT PRIMARY KEY, "
+    private static void createTablesIfNotExists() {
+        // SQL statements to create tables
+        String createStudentsTableSQL = "CREATE TABLE IF NOT EXISTS students ("
+                + "student_id INT AUTO_INCREMENT PRIMARY KEY, "
                 + "name VARCHAR(100) NOT NULL, "
-                + "student_id VARCHAR(20) NOT NULL, "
-                + "grade VARCHAR(10) NOT NULL, "
+                + "grade INT NOT NULL, "
                 + "mobile_number VARCHAR(15) NOT NULL"
+                + ");";
+
+        String createSubjectsTableSQL = "CREATE TABLE IF NOT EXISTS subjects ("
+                + "subject_id INT AUTO_INCREMENT PRIMARY KEY, "
+                + "subject_name VARCHAR(100) NOT NULL, "
+                + "grade INT NOT NULL"
+                + ");";
+
+        String createMarksTableSQL = "CREATE TABLE IF NOT EXISTS marks ("
+                + "student_id INT, "
+                + "subject_id INT, "
+                + "marks INT, "
+                + "PRIMARY KEY (student_id, subject_id), "
+                + "FOREIGN KEY (student_id) REFERENCES students(student_id) ON DELETE CASCADE, "
+                + "FOREIGN KEY (subject_id) REFERENCES subjects(subject_id) ON DELETE CASCADE"
                 + ");";
 
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement()) {
-            stmt.execute(createTableSQL);
-            System.out.println("Table 'students' checked/created successfully.");
+            // Execute SQL statements to create tables
+            stmt.execute(createStudentsTableSQL);
+            stmt.execute(createSubjectsTableSQL);
+            stmt.execute(createMarksTableSQL);
+
+            System.out.println("Tables checked/created successfully.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
