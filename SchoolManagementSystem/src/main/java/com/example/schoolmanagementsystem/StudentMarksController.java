@@ -28,7 +28,6 @@ public class StudentMarksController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Initialize fixed columns
         studentIdCol.setCellValueFactory(new PropertyValueFactory<>("studentId"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         totalCol.setCellValueFactory(new PropertyValueFactory<>("total"));
@@ -40,14 +39,11 @@ public class StudentMarksController implements Initializable {
     }
 
     private void loadGradeData(int grade) {
-        // Clear existing columns (except fixed ones)
         tableView.getColumns().removeIf(column -> !column.equals(studentIdCol) && !column.equals(nameCol) &&
                 !column.equals(totalCol) && !column.equals(averageCol) && !column.equals(rankCol));
 
-        // Fetch subjects for the selected grade
         List<String> subjects = getSubjectsForGrade(grade);
 
-        // Add dynamic subject columns
         for (String subject : subjects) {
             TableColumn<StudentMarks, Integer> subjectCol = new TableColumn<>(subject);
             subjectCol.setCellValueFactory(cellData -> {
@@ -57,7 +53,6 @@ public class StudentMarksController implements Initializable {
             tableView.getColumns().add(tableView.getColumns().size() - 3, subjectCol); // Add before fixed columns
         }
 
-        // Fetch and populate data
         ObservableList<StudentMarks> data = FXCollections.observableArrayList();
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/school_db", "root", "1234")) {
             String query = "SELECT s.student_id, s.name, m.subject_id, sub.subject_name, m.marks " +
@@ -69,35 +64,29 @@ public class StudentMarksController implements Initializable {
             stmt.setInt(1, grade);
             ResultSet rs = stmt.executeQuery();
 
-            // Populate data
             while (rs.next()) {
                 int studentId = rs.getInt("student_id");
                 String name = rs.getString("name");
                 String subjectName = rs.getString("subject_name");
                 int marks = rs.getInt("marks");
 
-                // Find or create a StudentMarks object
                 StudentMarks student = data.stream()
                         .filter(s -> s.getStudentId() == studentId)
                         .findFirst()
                         .orElse(new StudentMarks(studentId, name));
 
-                // Add subject marks
                 student.addSubjectMarks(subjectName, marks);
 
-                // Add to the list if not already present
                 if (!data.contains(student)) {
                     data.add(student);
                 }
             }
 
-            // Calculate total, average, and rank
             calculateResults(data);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        // Set data to TableView
         tableView.setItems(data);
     }
 
@@ -126,10 +115,8 @@ public class StudentMarksController implements Initializable {
             student.setAverage(average);
         }
 
-        // Sort students by total marks to calculate rank
         data.sort((s1, s2) -> Integer.compare(s2.getTotal(), s1.getTotal()));
 
-        // Assign ranks
         for (int i = 0; i < data.size(); i++) {
             data.get(i).setRank(i + 1);
         }

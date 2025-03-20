@@ -23,7 +23,6 @@
                <columns>
                    <TableColumn fx:id="studentIdCol" text="Student ID" />
                    <TableColumn fx:id="nameCol" text="Name" />
-                   <!-- Dynamic subject columns will be added here -->
                    <TableColumn fx:id="totalCol" text="Total" />
                    <TableColumn fx:id="averageCol" text="Average" />
                    <TableColumn fx:id="rankCol" text="Rank" />

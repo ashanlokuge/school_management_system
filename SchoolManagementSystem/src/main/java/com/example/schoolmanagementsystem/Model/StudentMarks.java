@@ -16,7 +16,6 @@ public class StudentMarks {
         this.name = name;
     }
 
-    // Getters and Setters
     public int getStudentId() { return studentId; }
     public void setStudentId(int studentId) { this.studentId = studentId; }
 
