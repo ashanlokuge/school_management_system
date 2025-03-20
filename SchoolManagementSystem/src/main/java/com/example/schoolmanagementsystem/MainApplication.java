@@ -12,8 +12,7 @@ public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         DatabaseConnection.initializeDatabase();
-      
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("view/studentMarks-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("view/gradeDashboard-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 866,528 );
         stage.setTitle("Login");
         stage.setScene(scene);
