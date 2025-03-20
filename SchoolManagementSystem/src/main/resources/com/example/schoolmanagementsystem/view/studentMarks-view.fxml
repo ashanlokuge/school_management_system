@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="context" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.schoolmanagementsystem.StudentMarksController">
+   <children>
+      <Label layoutX="46.0" layoutY="14.0" text="Grade 10 Marks" textFill="#0044ff">
+         <font>
+            <Font name="System Bold" size="28.0" />
+         </font>
+      </Label>
+      <Button layoutX="435.0" layoutY="18.0" mnemonicParsing="false" onAction="#backGradesOnAction" style="-fx-background-color: black;" text="&lt;- Back to Grades" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
+       <TableView fx:id="tableView" layoutX="14.0" layoutY="66.0" prefHeight="400.0" prefWidth="600.0">
+               <columns>
+                   <TableColumn fx:id="studentIdCol" text="Student ID" />
+                   <TableColumn fx:id="nameCol" text="Name" />
+                   <TableColumn fx:id="totalCol" text="Total" />
+                   <TableColumn fx:id="averageCol" text="Average" />
+                   <TableColumn fx:id="rankCol" text="Rank" />
+               </columns>
+       </TableView>
+   </children>
+</AnchorPane>
