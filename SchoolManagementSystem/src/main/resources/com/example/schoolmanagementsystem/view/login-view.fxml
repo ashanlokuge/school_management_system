@@ -10,13 +10,13 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="528.0" maxWidth="866.0" minHeight="528.0" minWidth="866.0" prefHeight="528.0" prefWidth="866.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.schoolmanagementsystem.LoginController">
+<BorderPane fx:id="context" maxHeight="528.0" maxWidth="866.0" minHeight="528.0" minWidth="866.0" prefHeight="528.0" prefWidth="866.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.schoolmanagementsystem.LoginController">
    <left>
       <AnchorPane prefHeight="400.0" prefWidth="251.0" BorderPane.alignment="CENTER">
          <children>
             <ImageView fitHeight="528.0" fitWidth="401.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../images/brown-concrete-building-with-balconies.jpg" />
+                  <Image url="@../../../../../../../../../school_management_system/SchoolManagementSystem/src/main/resources/images/brown-concrete-building-with-balconies.jpg" />
                </image>
             </ImageView>
          </children>

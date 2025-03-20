@@ -8,5 +8,9 @@ module com.example.schoolmanagementsystem {
     requires java.sql;
 
     opens com.example.schoolmanagementsystem to javafx.fxml;
+    opens com.example.schoolmanagementsystem.Model to javafx.base;
+
     exports com.example.schoolmanagementsystem;
+    exports com.example.schoolmanagementsystem.Model;
+
 }
